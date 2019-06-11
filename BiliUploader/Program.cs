@@ -61,6 +61,12 @@ namespace BiliUploader
                     case "-f":
                         variables.IsIgnoreError = true;
                         break;
+                    case "-h":
+                    case "-?":
+                    case "?":
+                        Console.WriteLine(Properties.Resources.helpstr);
+                        Console.ReadKey();
+                        return;
                     default:
                         if (IsList)
                         {
