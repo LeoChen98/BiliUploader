@@ -41,7 +41,7 @@ B站投稿工具（命令行）
 
 
 ## 开放源代码许可
-### Newtonsoft.Json 12.0.1
+### Newtonsoft.Json 12.0.2
 <https://www.newtonsoft.com/json>
 
 Copyright (c) 2019 Newtonsoft
