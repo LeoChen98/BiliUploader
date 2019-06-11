@@ -20,7 +20,7 @@ B站投稿工具（命令行）
 ## 安装和使用
 * 本软件无需安装，下载解压后即可使用。
 ```
-用法: BiliUploader.exe -c cookies -ls filelist -le -title title -type typeid -tags tags [-cover cover] [-desc description] [-dynamic dynamic] [-dt publish_time] [-copyright copyright] [-mid mission_id] [-subtitle subtitle_language] [-f]
+用法: BiliUploader.exe -c cookies -ls file1 [file2 file3 ...] -le -title title -type typeid -tags tags [-cover cover] [-desc description] [-dynamic dynamic] [-dt publish_time] [-copyright copyright] [-mid mission_id] [-subtitle subtitle_language] [-f]
 
 解析：
 -c cookies                      账号cookies字符串
