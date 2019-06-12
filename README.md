@@ -19,6 +19,7 @@ B站投稿工具（命令行）
 
 ## 安装和使用
 * 本软件无需安装，下载解压后即可使用。
+* 在不使用压制功能的情况下无需下载ffmpeg。
 ```
 用法: BiliUploader.exe -c cookies -ls file1 [file2 file3 ...] -le -title title -type typeid -tags tags [-cover cover] [-desc description] [-dynamic dynamic] [-dt publish_time] [-copyright copyright] [-mid mission_id] [-subtitle subtitle_language] [-com compress_settings] [-f]
 
@@ -48,4 +49,11 @@ B站投稿工具（命令行）
 Copyright (c) 2019 Newtonsoft
 
 Licensed under MIT
+
+### ffmpeg v4.0
+<http://ffmpeg.org/>
+
+Copyright (c) 2000-2018 the FFmpeg developers
+
+Licensed under LGPL v2.1 or later
 
