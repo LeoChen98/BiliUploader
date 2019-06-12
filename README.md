@@ -20,7 +20,7 @@ B站投稿工具（命令行）
 ## 安装和使用
 * 本软件无需安装，下载解压后即可使用。
 ```
-用法: BiliUploader.exe -c cookies -ls file1 [file2 file3 ...] -le -title title -type typeid -tags tags [-cover cover] [-desc description] [-dynamic dynamic] [-dt publish_time] [-copyright copyright] [-mid mission_id] [-subtitle subtitle_language] [-f]
+用法: BiliUploader.exe -c cookies -ls file1 [file2 file3 ...] -le -title title -type typeid -tags tags [-cover cover] [-desc description] [-dynamic dynamic] [-dt publish_time] [-copyright copyright] [-mid mission_id] [-subtitle subtitle_language] [-com compress_settings] [-f]
 
 解析：
 -c cookies                      账号cookies字符串
@@ -36,6 +36,7 @@ B站投稿工具（命令行）
 -copyright copyright            版权，默认为1，即自制
 -mid mission_id                 活动id，默认为空
 -subtitle subtitle_language     字幕语言，默认为关闭字幕
+-com compress_settings_         压制设置，格式为：帧大小（例如1920x1080）,帧率（例如25）,码率（例如6000）,峰值码率（例如24000）；所有值可缺省但需保留逗号，缺省值默认为B站投稿最高配置。
 -f                              忽略错误，默认为遇到错误即结束
 ```
 

@@ -55,6 +55,11 @@ namespace BiliUploader
         public static List<string> FileList = new List<string>();
 
         /// <summary>
+        /// 指示是否删除压制缓存
+        /// </summary>
+        public static bool IsDeleteTmp { get; set; }
+
+        /// <summary>
         /// 稿件标题
         /// </summary>
         public static string Title { get; set; }
@@ -83,6 +88,30 @@ namespace BiliUploader
         /// 动态
         /// </summary>
         public static string dynamic { get; set; }
+
+        /// <summary>
+        /// 视频处理大小
+        /// </summary>
+        public static string v_size { get; set; }
+
+        /// <summary>
+        /// 视频处理帧数
+        /// </summary>
+        public static string v_fps { get; set; }
+
+        /// <summary>
+        /// 视频处理码率
+        /// </summary>
+        public static string v_rate { get; set; }
+        /// <summary>
+        /// 视频处理最高码率
+        /// </summary>
+        public static string v_maxrate { get; set; }
+
+        /// <summary>
+        /// 指示视频是否压制
+        /// </summary>
+        public static bool IsCompress { get; set; }
 
         /// <summary>
         /// 版权信息

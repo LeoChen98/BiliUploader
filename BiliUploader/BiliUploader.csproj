@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="compressor.cs" />
     <Compile Include="File2Base64Helper.cs" />
     <Compile Include="http.cs" />
     <Compile Include="Program.cs" />

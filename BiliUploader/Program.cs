@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -61,6 +63,31 @@ namespace BiliUploader
                     case "-f":
                         variables.IsIgnoreError = true;
                         break;
+                    case "-com":
+                        string[] settings = args[++args_index].Split(',');
+                        if (File.Exists("ffmpeg.exe"))
+                        {
+                            if (settings.Length == 4)
+                            {
+                                variables.v_size = settings[0];
+                                variables.v_fps = settings[1];
+                                variables.v_rate = settings[2];
+                                variables.v_maxrate = settings[3];
+                                variables.IsCompress = true;
+                            }
+                            else
+                            {
+                                Console.Error.WriteLine("入参格式错误，将不会对视频进行处理。");
+                            }
+                        }
+                        else
+                        {
+                            Console.Error.WriteLine("未找到ffmpeg，将不会对视频进行处理。");
+                        }
+                        break;
+                    case "-d":
+                        variables.IsDeleteTmp = true;
+                        break;
                     case "-h":
                     case "-?":
                     case "?":
@@ -83,21 +110,23 @@ namespace BiliUploader
             }
 
             //分P构造上传任务
-            List<Task> TaskQueue = new List<Task>();
-            for(int p = 1; p <= variables.FileList.Count; p++)
+            List<Task> UploadQueue = new List<Task>();
+            for (int p = 1; p <= variables.FileList.Count; p++)
             {
-               TaskQueue.Add(new Uploader().DoUpload(variables.FileList[p - 1], p));
+                UploadQueue.Add(UploadTask(p));
             }
+
             //等待分P上传任务结束
-            foreach (Task task in TaskQueue)
+            foreach (Task task in UploadQueue)
             {
-               task.Wait() ;
+                task.Wait();
             }
+
             //提交投稿
-            if(variables.IsIgnoreError || !variables.IsHasError)
+            if (variables.IsIgnoreError || !variables.IsHasError)
             {
                 Console.WriteLine("投稿准备就绪：");
-                Console.WriteLine("投稿标题：" + variables.Title );
+                Console.WriteLine("投稿标题：" + variables.Title);
                 Console.WriteLine("分P：" + variables.FileList.Count);
                 Console.WriteLine("封面：" + variables.CoverFile);
                 Console.WriteLine("分区：" + variables.type);
@@ -105,16 +134,39 @@ namespace BiliUploader
                 Console.WriteLine("标签：" + variables.tags);
                 Console.WriteLine("简介：" + variables.desc);
                 Console.WriteLine("动态：" + variables.dynamic);
-                if(variables.dt != -1)Console.WriteLine("投稿时间：" + variables.dt);
+                if (variables.dt != -1) Console.WriteLine("投稿时间：" + variables.dt);
                 Console.WriteLine("版权：" + variables.copyright);
                 Console.WriteLine("字幕语言：" + (variables.Subtitle == "" ? "禁用" : variables.Subtitle));
 
                 Uploader.Publish();
             }
+
+            //删除压制缓存
+            if (variables.IsDeleteTmp)
+            {
+                compressor.DeleteTmp();
+            }
+
             Console.ReadKey();
         }
 
-        
+        /// <summary>
+        /// 上传任务
+        /// </summary>
+        /// <param name="p">分P</param>
+        /// <returns></returns>
+        private static async Task UploadTask(int p)
+        {
+            //视频压制
+            if (variables.IsCompress)
+            {
+                variables.FileList[p-1] = await compressor.compress(variables.FileList[p - 1]);
+            }
+            //上传
+            await new Uploader().DoUpload(variables.FileList[p - 1], p);
+        }
+
+
         #endregion Private Methods
     }
 }
