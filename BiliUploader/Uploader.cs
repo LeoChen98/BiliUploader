@@ -297,7 +297,7 @@ namespace BiliUploader
                 JObject obj = JObject.Parse(str);
                 if((int)obj["code"] == 0)
                 {
-                    return (int)obj["data"]["id"];
+                    return obj["data"].HasValues ? (int)obj["data"]["id"] : -1;
                 }
             }
             return 0;
