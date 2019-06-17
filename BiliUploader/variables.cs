@@ -10,9 +10,30 @@ namespace BiliUploader
     /// </summary>
     internal class variables
     {
+        #region Public Fields
+
+        /// <summary>
+        /// 版权信息
+        /// </summary>
+        public static int copyright = 1;
+
+        /// <summary>
+        /// 视频文件列表
+        /// </summary>
+        public static List<string> FileList = new List<string>();
+
+        /// <summary>
+        /// 活动id
+        /// </summary>
+        public static int mission_id = -1;
+
+        #endregion Public Fields
 
         #region Private Fields
+
         private static string _CookiesString;
+
+        private static int _dt = -1;
 
         #endregion Private Fields
 
@@ -22,8 +43,6 @@ namespace BiliUploader
         /// Cookies集合
         /// </summary>
         public static CookieCollection Cookies { get; private set; }
-
-        public static string csrf { get; private set; }
 
         /// <summary>
         /// Cookies字符串
@@ -40,44 +59,11 @@ namespace BiliUploader
         }
 
         /// <summary>
-        /// 指示是否忽略错误
-        /// </summary>
-        public static bool IsIgnoreError { get; set; }
-
-        /// <summary>
-        /// 指示是否出现错误
-        /// </summary>
-        public static bool IsHasError { get; set; }
-
-        /// <summary>
-        /// 视频文件列表
-        /// </summary>
-        public static List<string> FileList = new List<string>();
-
-        /// <summary>
-        /// 指示是否删除压制缓存
-        /// </summary>
-        public static bool IsDeleteTmp { get; set; }
-
-        /// <summary>
-        /// 稿件标题
-        /// </summary>
-        public static string Title { get; set; }
-
-        /// <summary>
         /// 封面图片
         /// </summary>
         public static string CoverFile { get; set; }
 
-        /// <summary>
-        /// 分区id
-        /// </summary>
-        public static int type { get; set; }
-
-        /// <summary>
-        /// 标签
-        /// </summary>
-        public static string tags { get; set; }
+        public static string csrf { get; private set; }
 
         /// <summary>
         /// 稿件简介
@@ -85,28 +71,22 @@ namespace BiliUploader
         public static string desc { get; set; }
 
         /// <summary>
+        /// 投稿时间
+        /// </summary>
+        public static int dt
+        {
+            get
+            {
+                if (_dt != -1 && GetNowTimeStamp() + 14400 > _dt) return GetNowTimeStamp() + 14400;
+                else return _dt;
+            }
+            set { _dt = value; }
+        }
+
+        /// <summary>
         /// 动态
         /// </summary>
         public static string dynamic { get; set; }
-
-        /// <summary>
-        /// 视频处理大小
-        /// </summary>
-        public static string v_size { get; set; }
-
-        /// <summary>
-        /// 视频处理帧数
-        /// </summary>
-        public static string v_fps { get; set; }
-
-        /// <summary>
-        /// 视频处理码率
-        /// </summary>
-        public static string v_rate { get; set; }
-        /// <summary>
-        /// 视频处理最高码率
-        /// </summary>
-        public static string v_maxrate { get; set; }
 
         /// <summary>
         /// 指示视频是否压制
@@ -114,42 +94,63 @@ namespace BiliUploader
         public static bool IsCompress { get; set; }
 
         /// <summary>
-        /// 版权信息
+        /// 指示是否删除压制缓存
         /// </summary>
-        public static int copyright = 1;
-        /// <summary>
-        /// 活动id
-        /// </summary>
-        public static int mission_id = -1;
-
-        private static int _dt = -1;
+        public static bool IsDeleteTmp { get; set; }
 
         /// <summary>
-        /// 投稿时间
+        /// 指示是否出现错误
         /// </summary>
-        public static int dt {
-            get {
-                if (_dt != -1 && GetNowTimeStamp() + 14400 > _dt) return GetNowTimeStamp() + 14400;
-                else return _dt;
-            }
-            set { _dt = value; }
-        }
-        #endregion Public Properties
+        public static bool IsHasError { get; set; }
 
-        #region Public Methods
+        /// <summary>
+        /// 指示是否忽略错误
+        /// </summary>
+        public static bool IsIgnoreError { get; set; }
+
         /// <summary>
         /// 字幕语言
         /// </summary>
         public static string Subtitle { get; set; }
 
         /// <summary>
-        /// 获取当前时间戳
+        /// 标签
         /// </summary>
-        /// <returns></returns>
-        private static int GetNowTimeStamp()
-        {
-            return (int)(DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000000;
-        }
+        public static string tags { get; set; }
+
+        /// <summary>
+        /// 稿件标题
+        /// </summary>
+        public static string Title { get; set; }
+
+        /// <summary>
+        /// 分区id
+        /// </summary>
+        public static int type { get; set; }
+
+        /// <summary>
+        /// 视频处理帧数
+        /// </summary>
+        public static string v_fps { get; set; }
+
+        /// <summary>
+        /// 视频处理最高码率
+        /// </summary>
+        public static string v_maxrate { get; set; }
+
+        /// <summary>
+        /// 视频处理码率
+        /// </summary>
+        public static string v_rate { get; set; }
+
+        /// <summary>
+        /// 视频处理大小
+        /// </summary>
+        public static string v_size { get; set; }
+
+        #endregion Public Properties
+
+        #region Public Methods
 
         /// <summary>
         /// 设置Cookies
@@ -180,5 +181,18 @@ namespace BiliUploader
         }
 
         #endregion Public Methods
+
+        #region Private Methods
+
+        /// <summary>
+        /// 获取当前时间戳
+        /// </summary>
+        /// <returns></returns>
+        private static int GetNowTimeStamp()
+        {
+            return (int)((DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000000);
+        }
+
+        #endregion Private Methods
     }
 }

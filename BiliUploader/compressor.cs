@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace BiliUploader
 {
-    class compressor
+    internal class compressor
     {
+        #region Public Methods
+
         /// <summary>
         /// 压制函数
         /// </summary>
@@ -55,6 +56,25 @@ namespace BiliUploader
         }
 
         /// <summary>
+        /// 删除缓存文件
+        /// </summary>
+        public static void DeleteTmp()
+        {
+            Regex reg = new Regex("tmptoupload_ *.*");
+            foreach (string file in variables.FileList)
+            {
+                if (reg.IsMatch(file))
+                {
+                    File.Delete(file);
+                }
+            }
+        }
+
+        #endregion Public Methods
+
+        #region Private Methods
+
+        /// <summary>
         /// 执行压制
         /// </summary>
         /// <param name="arguments">压制参数</param>
@@ -76,7 +96,8 @@ namespace BiliUploader
             };
             process.Start();
 
-            await Task.Run(() =>{
+            await Task.Run(() =>
+            {
                 while (!process.HasExited)
                 {
                     Console.WriteLine(process.StandardError.ReadToEnd());
@@ -127,54 +148,55 @@ namespace BiliUploader
             }
         }
 
+        #endregion Private Methods
+
+        #region Private Classes
+
         /// <summary>
         /// 视频信息模板
         /// </summary>
         private class VideoInfo
         {
-            /// <summary>
-            /// 视频宽
-            /// </summary>
-            public string Width { get; set; }
-            /// <summary>
-            /// 视频高
-            /// </summary>
-            public string Height { get; set; }
-            /// <summary>
-            /// 宽高比
-            /// </summary>
-            public string Scale { get; set; }
-            /// <summary>
-            /// 宽高比宽
-            /// </summary>
-            public string ScaleX { get; set; }
-            /// <summary>
-            /// 宽高比高
-            /// </summary>
-            public string ScaleY { get; set; }
+            #region Public Properties
+
             /// <summary>
             /// 视频帧率
             /// </summary>
             public string Fps { get; set; }
+
+            /// <summary>
+            /// 视频高
+            /// </summary>
+            public string Height { get; set; }
+
             /// <summary>
             /// 视频码率
             /// </summary>
             public string Rate { get; set; }
+
+            /// <summary>
+            /// 宽高比
+            /// </summary>
+            public string Scale { get; set; }
+
+            /// <summary>
+            /// 宽高比宽
+            /// </summary>
+            public string ScaleX { get; set; }
+
+            /// <summary>
+            /// 宽高比高
+            /// </summary>
+            public string ScaleY { get; set; }
+
+            /// <summary>
+            /// 视频宽
+            /// </summary>
+            public string Width { get; set; }
+
+            #endregion Public Properties
         }
 
-        /// <summary>
-        /// 删除缓存文件
-        /// </summary>
-        public static void DeleteTmp()
-        {
-            Regex reg = new Regex("tmptoupload_ *.*");
-            foreach (string file in variables.FileList)
-            {
-                if (reg.IsMatch(file))
-                {
-                    File.Delete(file);
-                }
-            }
-        }
+        #endregion Private Classes
     }
 }
