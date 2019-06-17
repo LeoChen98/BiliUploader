@@ -102,8 +102,6 @@ namespace BiliUploader
                 sdata.Write(bdata, 0, bdata.Length);
                 sdata.Close();
 
-                
-
                 if (!string.IsNullOrEmpty(referer)) req.Referer = referer;
                 if (!string.IsNullOrEmpty(user_agent)) req.UserAgent = user_agent;
 
@@ -159,7 +157,6 @@ namespace BiliUploader
                 rep = (HttpWebResponse)req.GetResponse();
 
                 if (rep.StatusCode == HttpStatusCode.OK) result = true;
-
             }
             finally
             {

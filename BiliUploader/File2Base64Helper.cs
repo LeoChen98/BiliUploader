@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Web;
 using System.Text;
+using System.Web;
 
 namespace BiliUploader
 {
@@ -84,7 +84,7 @@ namespace BiliUploader
                         header = "data:image/png;base64,";
                         break;
                 }
-                return HttpUtility.UrlEncode(header + Convert.ToBase64String(tmp),Encoding.UTF8);
+                return HttpUtility.UrlEncode(header + Convert.ToBase64String(tmp), Encoding.UTF8);
             }
         }
 

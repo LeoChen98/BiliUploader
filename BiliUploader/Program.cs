@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,45 +23,59 @@ namespace BiliUploader
                     case "-c"://cookies
                         variables.CookiesString = args[++args_index];
                         break;
+
                     case "-ls"://list start
                         IsList = true;
                         break;
+
                     case "-le"://list end
                         IsList = false;
                         break;
+
                     case "-title":
                         variables.Title = args[++args_index];
                         break;
+
                     case "-cover"://cover image
                         variables.CoverFile = args[++args_index];
                         break;
+
                     case "-type"://type id
                         variables.type = int.Parse(args[++args_index]);
                         break;
+
                     case "-tags"://tags
                         variables.tags = args[++args_index];
                         break;
+
                     case "-desc"://description
                         variables.desc = args[++args_index];
                         break;
+
                     case "-dynamic"://dynamic
                         variables.dynamic = args[++args_index];
                         break;
+
                     case "-dt"://publish time(if smaller than the submit time +4h, dt=st+4h)
                         variables.dt = int.Parse(args[++args_index]);
                         break;
+
                     case "-copyright":
                         variables.copyright = int.Parse(args[++args_index]);
                         break;
+
                     case "-mid":
                         variables.mission_id = int.Parse(args[++args_index]);
                         break;
+
                     case "-subtitle":
                         variables.Subtitle = args[++args_index];
                         break;
+
                     case "-f":
                         variables.IsIgnoreError = true;
                         break;
+
                     case "-com":
                         string[] settings = args[++args_index].Split(',');
                         if (File.Exists("ffmpeg.exe"))
@@ -85,15 +98,18 @@ namespace BiliUploader
                             Console.Error.WriteLine("未找到ffmpeg，将不会对视频进行处理。");
                         }
                         break;
+
                     case "-d":
                         variables.IsDeleteTmp = true;
                         break;
+
                     case "-h":
                     case "-?":
                     case "?":
                         Console.WriteLine(Properties.Resources.helpstr);
                         Console.ReadKey();
                         return;
+
                     default:
                         if (IsList)
                         {
@@ -160,12 +176,11 @@ namespace BiliUploader
             //视频压制
             if (variables.IsCompress)
             {
-                variables.FileList[p-1] = await compressor.compress(variables.FileList[p - 1]);
+                variables.FileList[p - 1] = await compressor.compress(variables.FileList[p - 1]);
             }
             //上传
             await new Uploader().DoUpload(variables.FileList[p - 1], p);
         }
-
 
         #endregion Private Methods
     }
