@@ -61,14 +61,14 @@ namespace BiliUploader.Properties {
         }
         
         /// <summary>
-        ///   查找类似 用法: BiliUploader.exe -c cookies -ls file1 [file2 file3 ...] -le -title title -type typeid -tags tags [-cover cover] [-desc description] [-dynamic dynamic] [-dt publish_time] [-copyright copyright] [-mid mission_id] [-subtitle subtitle_language] [-com compress_settings] [-f]
+        ///   查找类似 用法: BiliUploader.exe -c cookies -ls file1 [file2 file3 ...] -le -title title -type typeid -tags tags [-cover cover] [-desc description] [-dynamic dynamic] [-dt publish_time] [-copyright copyright] [-mid mission_id] [-subtitle subtitle_language] [-com compress_settings] [-f] [-cf command_file]
         ///
         ///解析：
         ///-c cookies                      账号cookies字符串
         ///-ls                             视频文件列表开始标记，与-le联用，列表中文件之间用空格隔开
         ///-le                             视频文件列表开始标记，与-ls联用
         ///-title title                    投稿标题
-        ///-type typeid                   [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///-type typei [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string helpstr {
             get {

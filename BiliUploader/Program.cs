@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -74,6 +75,11 @@ namespace BiliUploader
 
                     case "-f":
                         variables.IsIgnoreError = true;
+                        break;
+
+                    case "-cf":
+                        args = SplitArgs(args[++args_index]);
+                        args_index = -1;
                         break;
 
                     case "-com":
@@ -164,6 +170,63 @@ namespace BiliUploader
             }
 
             Console.ReadKey();
+        }
+
+        /// <summary>
+        /// 分割命令字符串
+        /// </summary>
+        /// <param name="args_filename">命令文件</param>
+        /// <returns>命令字符串组</returns>
+        private static string[] SplitArgs(string args_filename)
+        {
+            string[] result;
+            if (File.Exists(args_filename))
+            {
+                using(FileStream fs = File.OpenRead(args_filename))
+                {
+                    using(StreamReader reader = new StreamReader(fs,Encoding.UTF8))
+                    {
+                        string str_args = reader.ReadToEnd();
+                        if (!string.IsNullOrEmpty(str_args))
+                        {
+                            str_args = str_args.Replace("\\\"", "{引号}");
+                            string[] tmp = str_args.Split('\"');
+                            List<string> tmp_result = new List<string>();
+                            for(int i = 0; i < tmp.Length; i++)
+                            {
+                                if(i%2 == 0)
+                                {
+                                    tmp_result.AddRange(tmp[i].Split(' '));
+                                }
+                                else
+                                {
+                                    tmp_result.Add(tmp[i]);
+                                }
+                            }
+                            for(int s = tmp_result.Count-1; s>=0; s--)
+                            {
+                                if (string.IsNullOrEmpty(tmp_result[s]))
+                                {
+                                    tmp_result.RemoveAt(s);
+                                    continue;
+                                }
+
+                                tmp_result[s] = tmp_result[s].Replace("{引号}", "\"");
+                            }
+                            result = tmp_result.ToArray();
+                        }
+                        else
+                        {
+                            result = new string[0];
+                        }
+                    }
+                }
+            }
+            else
+            {
+                result = new string[0];
+            }
+            return result;
         }
 
         /// <summary>
