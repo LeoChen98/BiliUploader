@@ -212,6 +212,9 @@ namespace BiliUploader
                                 }
 
                                 tmp_result[s] = tmp_result[s].Replace("{引号}", "\"");
+                                tmp_result[s] = tmp_result[s].Replace("\\n", "\n");
+                                tmp_result[s] = tmp_result[s].Replace("\\r", "\r");
+
                             }
                             result = tmp_result.ToArray();
                         }
