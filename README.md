@@ -21,7 +21,7 @@ B站投稿工具（命令行）
 * 本软件无需安装，下载解压后即可使用。
 * 在不使用压制功能的情况下无需下载ffmpeg。
 ```
-用法: BiliUploader.exe -c cookies -ls file1 [file2 file3 ...] -le -title title -type typeid -tags tags [-cover cover] [-desc description] [-dynamic dynamic] [-dt publish_time] [-copyright copyright] [-mid mission_id] [-subtitle subtitle_language] [-com compress_settings] [-f]
+用法: BiliUploader.exe -c cookies -ls file1 [file2 file3 ...] -le -title title -type typeid -tags tags [-cover cover] [-desc description] [-dynamic dynamic] [-dt publish_time] [-copyright copyright] [-mid mission_id] [-subtitle subtitle_language] [-com compress_settings] [-f] [-cf command_file]
 
 解析：
 -c cookies                      账号cookies字符串
@@ -39,6 +39,7 @@ B站投稿工具（命令行）
 -subtitle subtitle_language     字幕语言，默认为关闭字幕
 -com compress_settings_         压制设置，默认不压制，格式为：帧大小（例如1920x1080）,帧率（例如25）,码率（例如6000）,峰值码率（例如24000）；所有值可缺省但需保留逗号，缺省值默认为B站投稿最高配置。
 -f                              忽略错误，默认为遇到错误即结束
+-cf command_file                命令文件启动，此命令后的命令不会被执行
 ```
 
 
