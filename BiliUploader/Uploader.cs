@@ -491,6 +491,7 @@ namespace BiliUploader
             [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(-1)]
             public int mission_id = -1;
 
+            public int open_elec = 1;
             public int no_reprint = 1;
             public SubtitleInfo subtitle;
             public string tag;
